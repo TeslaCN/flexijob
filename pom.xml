@@ -6,17 +6,17 @@
 
     <groupId>icu.wwj.flexijob</groupId>
     <artifactId>flexijob</artifactId>
-    <version>3.0.0-beta-SNAPSHOT</version>
+    <version>3.0.1-SNAPSHOT</version>
 
     <properties>
         <java.version>1.8</java.version>
 
-        <elasticjob.version>3.0.0-beta</elasticjob.version>
-        <lombok.version>1.18.12</lombok.version>
-        <slf4j.version>1.7.30</slf4j.version>
-        <log4j.version>2.13.0</log4j.version>
+        <elasticjob.version>3.0.1</elasticjob.version>
+        <lombok.version>1.18.22</lombok.version>
+        <slf4j.version>1.7.32</slf4j.version>
+        <log4j.version>2.14.1</log4j.version>
 
-        <junit.version>5.7.0</junit.version>
+        <junit.version>5.8.1</junit.version>
         <mockito.version>3.6.0</mockito.version>
 
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
@@ -26,6 +26,11 @@
         <dependency>
             <groupId>org.apache.shardingsphere.elasticjob</groupId>
             <artifactId>elasticjob-lite-core</artifactId>
+            <version>${elasticjob.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shardingsphere.elasticjob</groupId>
+            <artifactId>elasticjob-lite-lifecycle</artifactId>
             <version>${elasticjob.version}</version>
         </dependency>
         <dependency>

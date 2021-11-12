@@ -24,6 +24,10 @@ public final class ScheduleService {
     
     public void scheduleJob(final String jobName) {
         String elasticjobClassOrType = registryCenter.get("/" + jobName);
+        if (Strings.isNullOrEmpty(elasticjobClassOrType)) {
+            log.debug("The job '{}' missing elasticjob class or type will not be scheduled", jobName);
+            return;
+        }
         ConfigurationService configurationService = new ConfigurationService(registryCenter, jobName);
         JobConfiguration jobConfiguration = configurationService.load(false);
         if (Strings.isNullOrEmpty(jobConfiguration.getCron())) {
