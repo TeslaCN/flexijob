@@ -22,13 +22,13 @@
     
     <groupId>icu.wwj.flexijob.examples</groupId>
     <artifactId>examples</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>2021.11.25</version>
     
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         
-        <flexijob.version>3.0.1-SNAPSHOT</flexijob.version>
+        <flexijob.version>2021.11.25</flexijob.version>
         <lombok.version>1.18.22</lombok.version>
         <log4j.version>2.14.1</log4j.version>
     </properties>
