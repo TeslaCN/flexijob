@@ -16,7 +16,6 @@
 
 package icu.wwj.flexijob;
 
-import lombok.RequiredArgsConstructor;
 import org.apache.curator.framework.api.transaction.CuratorOp;
 import org.apache.shardingsphere.elasticjob.api.ElasticJob;
 import org.apache.shardingsphere.elasticjob.api.JobConfiguration;
@@ -24,6 +23,10 @@ import org.apache.shardingsphere.elasticjob.infra.pojo.JobConfigurationPOJO;
 import org.apache.shardingsphere.elasticjob.infra.yaml.YamlEngine;
 import org.apache.shardingsphere.elasticjob.lite.internal.storage.JobNodePath;
 import org.apache.shardingsphere.elasticjob.lite.internal.storage.JobNodeStorage;
+import org.apache.shardingsphere.elasticjob.lite.lifecycle.api.JobConfigurationAPI;
+import org.apache.shardingsphere.elasticjob.lite.lifecycle.api.JobOperateAPI;
+import org.apache.shardingsphere.elasticjob.lite.lifecycle.internal.operate.JobOperateAPIImpl;
+import org.apache.shardingsphere.elasticjob.lite.lifecycle.internal.settings.JobConfigurationAPIImpl;
 import org.apache.shardingsphere.elasticjob.reg.base.CoordinatorRegistryCenter;
 
 import java.nio.charset.StandardCharsets;
@@ -33,10 +36,19 @@ import java.util.List;
 /**
  * Flexijob client.
  */
-@RequiredArgsConstructor
 public class FlexijobClient {
     
     private final CoordinatorRegistryCenter registryCenter;
+    
+    private final JobOperateAPI jobOperateAPI;
+    
+    private final JobConfigurationAPI jobConfigurationAPI;
+    
+    public FlexijobClient(final CoordinatorRegistryCenter registryCenter) {
+        this.registryCenter = registryCenter;
+        jobOperateAPI = new JobOperateAPIImpl(registryCenter);
+        jobConfigurationAPI = new JobConfigurationAPIImpl(registryCenter);
+    }
     
     /**
      * Add classed job to register center. The ElasticJob Class must have a no args constructor.
@@ -67,5 +79,15 @@ public class FlexijobClient {
             result.add(transactionOp.create().forPath(jobNodePath.getConfigNodePath(), YamlEngine.marshal(jobConfigurationPOJO).getBytes(StandardCharsets.UTF_8)));
             return result;
         });
+    }
+    
+    /**
+     * Remove job.
+     *
+     * @param jobName job name
+     */
+    public void removeJob(final String jobName) {
+        jobOperateAPI.remove(jobName, null);
+        jobConfigurationAPI.removeJobConfiguration(jobName);
     }
 }
