@@ -19,10 +19,25 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>icu.wwj.flexijob</groupId>
     <artifactId>flexijob</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.0.1</version>
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>Based on ElasticJob, providing ability to create schedule job dynamically.</description>
+    <url>https://github.com/TeslaCN/flexijob</url>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Weijie Wu 吴伟杰</name>
+            <email>wuweijie@apache.org</email>
+            <url>https://github.com/TeslaCN</url>
+        </developer>
+    </developers>
 
     <properties>
         <java.version>1.8</java.version>
@@ -112,6 +127,64 @@
                 </configuration>
                 <version>${maven-compiler-plugin.version}</version>
             </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <keyname>0x2DE3A2A9</keyname>
+                            <passphraseServerId>0x2DE3A2A9</passphraseServerId>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+    
+    <scm>
+        <connection>scm:git:git://github.com/TeslaCN/flexijob.git</connection>
+        <developerConnection>scm:git:ssh://github.com:TeslaCN/flexijob.git</developerConnection>
+        <url>https://github.com/TeslaCN/flexijob</url>
+    </scm>
 </project>
